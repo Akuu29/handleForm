@@ -1,27 +1,30 @@
 require("dotenv").config();
 
-const nodeMailer = require("nodemailer");
+const nodeMailer = require("nodemailer")
 
-function sendMail(smtpData, mailData) {
+const sendMail = (smtpData, mailData) => {
 
 	// SMTPサーバの情報をまとめる
-	const transporter = nodeMailer.createTransport(smtpData);
+	const transporter = nodeMailer.createTransport(smtpData)
 
 	// メール送信
 	transporter.sendMail(mailData, function(error, info) {
-		if(error) {
-			// console.log(process.env.MAILADDRESS);
-			// console.log(process.env.PASSWORD);
-			// エラー
-			console.log(error);
-		} else {
-			// 送信成功
-			console.log("Email sent: " + info.responce);
-		}
+		console.log(
+			(error) ? error : `Email sent: ${info.responce}`
+		)
+		// if(error) {
+		// 	// console.log(process.env.MAILADDRESS)
+		// 	// console.log(process.env.PASSWORD)
+		// 	// エラー
+		// 	console.log(error);
+		// } else {
+		// 	// 送信成功
+		// 	console.log("Email sent: " + info.responce)
+		// }
 	});
 }
 
-function senderMain() {
+const senderMain = () => {
 	// SMTP情報を格納(Gmailの場合)
 	const smtpData = {
 		host: "smtp.gmail.com",	// Gmailサーバ
@@ -31,7 +34,7 @@ function senderMain() {
 			user: process.env.MAILADDRESS,		// メールアドレス
 			pass: process.env.PASSWORD			// パスワード
 		}
-	};
+	}
 
 	// メール内容の設定
 	const mailData = {
@@ -43,7 +46,7 @@ function senderMain() {
 	}
 
 	// メール送信
-	sendMail(smtpData, mailData);
+	sendMail(smtpData, mailData)
 }
 
-senderMain();
+senderMain()
