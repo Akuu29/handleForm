@@ -5,7 +5,7 @@ fetch("/api/").then(responce => {
 	console.log(responce.json())
 })
 
-const Index = () => {
+export const Index = () => {
 	return  <div>Hello React!</div>
 }
 
